@@ -36,16 +36,9 @@ const deleteArticles = asyncHandler(async (req, res) => {
 });
 
 const getArticles = asyncHandler(async (req, res) => {
-  const articulos = await Articulo.find().lean();
-  try {
-    if (!articulos.length) {
-      res.status(201).json({ msg: `no existen registro` });
-    }
-    return res.status(200).json({
-      articulos,
-    });
-  } catch (error) {
-    console.log(error);
+  const articulos = await Articulo.find();
+  res.status(200).json(articulos);
+  if (!articulos) {
     return res.status(500).json({ msg: `error en la consulta` });
   }
 });
