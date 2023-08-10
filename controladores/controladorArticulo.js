@@ -43,14 +43,35 @@ const getArticles = asyncHandler(async (req, res) => {
   }
 });
 
-const updateArticles = () => {
-  console.log("Aqui va el actualizar");
-};
+const updateArticle = asyncHandler(async (req, res) => {
+  const { titulo, descripcionBreve, descripcion, imagen, categoria } = req.body;
+  const articleId = req.params.id;
+  const updatedArticle = await Articulo.findByIdAndUpdate(
+    articleId,
+    {
+      titulo,
+      descripcionBreve,
+      descripcion,
+      imagen,
+      categoria,
+    },
+    { new: true }
+  );
+
+  if (!updatedArticle) {
+    res
+      .status(404)
+      .json({ msg: `No se encontró el artículo con ID: ${articleId}` });
+    return;
+  }
+  res.status(200).json(updatedArticle);
+});
 
 const controladorUser = {
   postArticle,
   deleteArticles,
   getArticles,
+  updateArticle,
 };
 
 export default controladorUser;

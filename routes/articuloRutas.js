@@ -9,4 +9,5 @@ router.route("deletepost/:id").delete(protect, controlador.deleteArticles);
 
 router.get("/getarticles", controlador.getArticles);
 
+router.patch("/:id", controlador.updateArticle);
 export default router;
