@@ -4,7 +4,7 @@ import asyncHandler from "express-async-handler";
 const postArticle = asyncHandler(async (req, res) => {
   const { titulo, descripcionBreve, descripcion, imagen, categoria } = req.body;
 
-  if (!titulo || !descripcionBreve || !descripcion || !imagen || !categoria) {
+  if (!titulo || !descripcionBreve || !descripcion || !categoria) {
     res.status(400).json({ msg: "error al ingresar articulo" });
   }
 
