@@ -3,11 +3,6 @@ import { Schema } from "mongoose";
 
 const articuloSchema = new Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      require: true,
-      ref: "User",
-    },
     titulo: {
       type: String,
       require: true,
@@ -36,5 +31,11 @@ const articuloSchema = new Schema(
   },
   { timestamps: true }
 );
+
+/* user: {
+  type: mongoose.Schema.Types.ObjectId,
+  require: true,
+  ref: "User",
+}, */
 
 export default mongoose.model("articulos", articuloSchema);

@@ -6,17 +6,21 @@ const postArticle = asyncHandler(async (req, res) => {
 
   if (!titulo || !descripcionBreve || !descripcion || !categoria) {
     res.status(400).json({ msg: "error al ingresar articulo" });
+  } else {
+    const article = await Articulo.create({
+      titulo,
+      descripcionBreve,
+      descripcion,
+      imagen,
+      categoria,
+    });
+    res.status(200).json(article);
   }
+});
 
-  const article = await Articulo.create({
-    user: req.user.id,
-    titulo,
-    descripcionBreve,
-    descripcion,
-    imagen,
-    categoria,
-  });
-  res.status(200).json(article);
+const getArticleById = asyncHandler(async (req, res) => {
+  const article = await Articulo.findById(req.params.id);
+  res.json(article);
 });
 
 const deleteArticles = asyncHandler(async (req, res) => {
@@ -45,6 +49,7 @@ const getArticles = asyncHandler(async (req, res) => {
 
 const updateArticle = asyncHandler(async (req, res) => {
   const { titulo, descripcionBreve, descripcion, imagen, categoria } = req.body;
+  console.log(req.body);
   const articleId = req.params.id;
   const updatedArticle = await Articulo.findByIdAndUpdate(
     articleId,
