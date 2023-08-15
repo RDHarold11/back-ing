@@ -72,11 +72,28 @@ const updateArticle = asyncHandler(async (req, res) => {
   res.status(200).json(updatedArticle);
 });
 
+const getArticleByType = asyncHandler(async (req, res) => {
+  const commonError = {msg: `Ha ocurrido un problema inesperado`};
+
+  const {type} = req.params; 
+  try {
+    const articles = await Articulo.find({categoria: type});
+
+    if (!articles) return res.status(500).json(commonError)
+
+    return res.status(200).json(articles)
+  }catch (e) {
+    console.log(e);
+    return res.status(500).json(commonError);
+  }
+});
+
 const controladorUser = {
   postArticle,
   deleteArticles,
   getArticles,
   updateArticle,
+  getArticleByType
 };
 
 export default controladorUser;
