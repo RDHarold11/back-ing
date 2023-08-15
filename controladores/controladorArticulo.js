@@ -81,7 +81,7 @@ const getArticleByType = asyncHandler(async (req, res) => {
 
     if (!articles) return res.status(500).json(commonError)
 
-    return res.status(200).json([articles, type])
+    return res.status(200).json(articles)
   }catch (e) {
     console.log(e);
     return res.status(500).json(commonError);
