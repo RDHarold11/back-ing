@@ -89,6 +89,8 @@ const getArticleByType = asyncHandler(async (req, res) => {
 
 const getRecentArticles = asyncHandler(async (req, res) => {
 
+  return res.status(200).json({msg: 'el final de lo finale'})
+
   const articles = await Articulo.find({}, null, { limit: 2 }).sort({
     createdAt: "desc",
   });
