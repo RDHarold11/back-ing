@@ -79,7 +79,7 @@ const getArticleByType = asyncHandler(async (req, res) => {
 
   const { type } = req.params;
   const articles = await Articulo.find({ categoria: type }, null, {
-    limit: 4,
+    limit: 8,
   }).sort({ createdAt: "desc" });
 
   if (!articles) return res.status(500).json(commonError);
@@ -93,7 +93,7 @@ const getRecentArticles = asyncHandler(async (req, res) => {
     createdAt: "desc",
   });
 
-  if (!articles) return res.status(500).json(commonError);
+  // if (!articles) return res.status(500).json(commonError);
 
   return res.status(200).json(articles);
 
