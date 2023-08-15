@@ -112,6 +112,7 @@ const controladorUser = {
   deleteArticles,
   getArticles,
   updateArticle,
+  getArticleById,
   getArticleByType,
   getRecentArticles,
 };

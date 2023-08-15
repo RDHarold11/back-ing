@@ -11,6 +11,8 @@ router.get("/getarticles", controlador.getArticles);
 
 router.get("/getArticlesBy/:type", controlador.getArticleByType);
 
+router.get("/:id", controlador.getArticleById);
+
 router.get("/getRecentsArticles", controlador.getRecentArticles);
 
 router.patch("/:id", controlador.updateArticle);
