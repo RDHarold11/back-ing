@@ -1,5 +1,7 @@
 import Articulo from "../modelos/articulosModelo.js";
 import asyncHandler from "express-async-handler";
+const commonError = { msg: `Ha ocurrido un problema inesperado` };
+
 
 const postArticle = asyncHandler(async (req, res) => {
   const { titulo, descripcionBreve, descripcion, imagen, categoria } = req.body;
@@ -76,35 +78,25 @@ const getArticleByType = asyncHandler(async (req, res) => {
   const commonError = { msg: `Ha ocurrido un problema inesperado` };
 
   const { type } = req.params;
-  try {
-    const articles = await Articulo.find({ categoria: type }, null, {
-      limit: 4,
-    }).sort({ createdAt: "desc" });
+  const articles = await Articulo.find({ categoria: type }, null, {
+    limit: 4,
+  }).sort({ createdAt: "desc" });
 
-    if (!articles) return res.status(500).json(commonError);
+  if (!articles) return res.status(500).json(commonError);
 
-    return res.status(200).json(articles);
-  } catch (e) {
-    console.log(e);
-    return res.status(500).json(commonError);
-  }
+  return res.status(200).json(articles);
 });
 
 const getRecentArticles = asyncHandler(async (req, res) => {
-  const commonError = { msg: `Ha ocurrido un problema inesperado` };
 
-  try {
-    const articles = await Articulo.find({}, null, { limit: 2 }).sort({
-      createdAt: "desc",
-    });
+  const articles = await Articulo.find({}, null, { limit: 2 }).sort({
+    createdAt: "desc",
+  });
 
-    if (!articles) return res.status(500).json(commonError);
+  if (!articles) return res.status(500).json(commonError);
 
-    return res.status(200).json(articles);
-  } catch (e) {
-    console.log(e);
-    return res.status(500).json(commonError);
-  }
+  return res.status(200).json(articles);
+
 });
 
 const controladorUser = {
