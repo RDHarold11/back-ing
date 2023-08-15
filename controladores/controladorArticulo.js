@@ -92,8 +92,10 @@ const getRecentArticles = asyncHandler(async (req, res) => {
   const articles = await Articulo.find({}, null, { limit: 2 }).sort({
     createdAt: "desc",
   });
+  
+  return res.status(200).json(articles);
 
-  // if (!articles) return res.status(500).json(commonError);
+  if (!articles) return res.status(500).json(commonError);
 
   return res.status(200).json(articles);
 
