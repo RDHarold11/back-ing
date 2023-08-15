@@ -77,7 +77,8 @@ const getArticleByType = asyncHandler(async (req, res) => {
 
   const {type} = req.params; 
   try {
-    const articles = await Articulo.find({categoria: type},null, {limit: 4});
+    const articles = await Articulo.find({categoria: type},null, {limit: 4}).sort({createdAt: 'desc'});
+
 
     if (!articles) return res.status(500).json(commonError)
 
