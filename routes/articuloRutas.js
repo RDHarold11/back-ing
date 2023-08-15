@@ -9,9 +9,7 @@ router.route("deletepost/:id").delete(controlador.deleteArticles);
 
 router.get("/getarticles", controlador.getArticles);
 
-router.get("/getArticlesBy/:type", 
-    // protect,
-    controlador.getArticleByType
+router.get("/getArticlesBy/:type", controlador.getArticleByType
 );
 
 router.patch("/:id", controlador.updateArticle);
