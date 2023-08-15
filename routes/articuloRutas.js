@@ -9,5 +9,7 @@ router.route("deletepost/:id").delete(controlador.deleteArticles);
 
 router.get("/getarticles", controlador.getArticles);
 
+router.get("/:id", controlador.getArticleById);
+
 router.patch("/:id", controlador.updateArticle);
 export default router;

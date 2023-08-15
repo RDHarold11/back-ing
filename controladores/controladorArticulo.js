@@ -77,6 +77,7 @@ const controladorUser = {
   deleteArticles,
   getArticles,
   updateArticle,
+  getArticleById,
 };
 
 export default controladorUser;
