@@ -2,7 +2,6 @@ import Articulo from "../modelos/articulosModelo.js";
 import asyncHandler from "express-async-handler";
 const commonError = { msg: `Ha ocurrido un problema inesperado` };
 
-
 const postArticle = asyncHandler(async (req, res) => {
   const { titulo, descripcionBreve, descripcion, imagen, categoria } = req.body;
 
@@ -27,11 +26,12 @@ const getArticleById = asyncHandler(async (req, res) => {
 
 const deleteArticles = asyncHandler(async (req, res) => {
   const article = await Articulo.findById(req.params.id);
-  if (!article) {
+  if (article) {
+    await article.deleteOne();
+    res.status(200).json({ msg: `user deleted` });
+  } else {
     res.status(400).json({ msg: `No articles with id: ${req.params.id}` });
   }
-  await article.deleteOne();
-  res.status(200).json({ msg: `user deleted` });
 });
 
 const getArticles = asyncHandler(async (req, res) => {
@@ -80,18 +80,6 @@ const getArticleByType = asyncHandler(async (req, res) => {
   return res.status(200).json(articles);
 });
 
-const getRecentArticles = asyncHandler(async (req, res) => {
-
-  const articles = await Articulo.find({}, null, { limit: 2 }).sort({
-    createdAt: "desc",
-  });
-
-  if (!articles) return res.status(500).json(commonError);
-
-  return res.status(200).json(articles);
-
-});
-
 const controladorUser = {
   postArticle,
   deleteArticles,
@@ -99,7 +87,6 @@ const controladorUser = {
   updateArticle,
   getArticleById,
   getArticleByType,
-  getRecentArticles,
 };
 
 export default controladorUser;
